@@ -43,14 +43,16 @@ public class StringLaba {
         String[] mass = new String[str.length()];
         int count_mass = 0;
         System.out.println();
-        System.out.println("Числа в 10-ой с/c: ");
+        System.out.println("Числа из 16 в 10-ой с/c: ");
         char[] charstr = new char[str.length()];
         str.getChars(0, str.length(), charstr, 0);  //getChars()
-        for (int i = 0; i < str.length(); i++) {
-            if (charstr[i] >= 'A' && charstr[i] <= 'F' || charstr[i] >= '0' && charstr[i] <= '9') {
-                System.out.print(Integer.parseInt(String.valueOf(charstr[i]), 16) + " "); //Integer.parseInt()
-                mass[count_mass] = String.valueOf(charstr[i]);
-                count_mass++;
+
+        for(int i = 0; i < count; i++){
+            try {
+                int temp = 0;
+                temp = Integer.parseInt(newStr[i], 16);
+                System.out.println("-> " + temp);
+            } catch (NumberFormatException e) {
             }
         }
         System.out.println();
@@ -73,6 +75,7 @@ public class StringLaba {
         for(int i = 0; i < count; i++){
             strList.add(newStr[i]);
         }
+
     }
 
     public static int Count(String str, String razdel) {
