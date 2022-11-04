@@ -4,6 +4,9 @@ import java.util.StringTokenizer;
 import java.lang.String;
 import java.lang.Object;
 import java.util.ArrayList;
+import java.text.NumberFormat;
+import java.util.*;
+
 
 public class StringLaba {
     public static void main(String[] args) {
@@ -17,7 +20,7 @@ public class StringLaba {
             newStr = str.split(razdel);
             System.out.print("Строка через split: ");
             for (String s : newStr) {
-                System.out.print(s + " ");
+               System.out.print(s + " ");
                 count++;
             }
         } else {
@@ -26,13 +29,15 @@ public class StringLaba {
             boolean flag = false;
             for (int i = 0; tokenizer.hasMoreTokens(); i++) {
                 newStr[i] = tokenizer.nextToken();
-                System.out.print(newStr[i]);
+                System.out.print(newStr[i] + " ");
                 count++;
             }
             System.out.println();
             for (int i = 0; i < count; i++) {
                 if (newStr[i].equals(P)) {
-                    System.out.println("Число " + P + " является лексемой №" + str.indexOf(P));
+                    String s = "%s %s %s %d";
+                    System.out.println(String.format(s, "Число ", P, " является лексемой №",(str.indexOf(P) + 1)));
+                   // System.out.println("Число " + P + " является лексемой №" + (str.indexOf(P) + 1));
                     flag = true;
                 }
             }
@@ -40,17 +45,18 @@ public class StringLaba {
         }
         // str = newStr.toString();
         str = String.join("", newStr);
-        String[] mass = new String[str.length()];
+        String[] massCount16 = new String[str.length()];
         int count_mass = 0;
         System.out.println();
-        System.out.println("Числа из 16 в 10-ой с/c: ");
         char[] charstr = new char[str.length()];
         str.getChars(0, str.length(), charstr, 0);  //getChars()
-
+        System.out.println("Числа из 16 в 10-ой с/c: ");
         for(int i = 0; i < count; i++){
             try {
                 int temp = 0;
                 temp = Integer.parseInt(newStr[i], 16);
+                massCount16[count_mass] = newStr[i];
+                count_mass++;
                 System.out.println("-> " + temp);
             } catch (NumberFormatException e) {
             }
@@ -58,11 +64,12 @@ public class StringLaba {
         System.out.println();
         System.out.print("Числа в 16-ой с/с: ");
         for (int i = 0; i < count_mass; i++) {
-            System.out.print(mass[i] + " ");
+            System.out.print(massCount16[i] + " ");
         }
         System.out.println();
         System.out.println("Строка без первого латинского символа: " + str.replaceFirst("([A-z])", ""));             //replace
-        System.out.println("Строка без первого числа в 16 c/c: " + str.replaceFirst("([A-F1-9])", ""));
+        System.out.println("Строка без первого числа в 16 c/c: " + str.replaceFirst(massCount16[0], ""));
+
         StringBuffer strBuffer = new StringBuffer();
         strBuffer.append(str);
         strBuffer.insert(3, "2022");
@@ -75,7 +82,8 @@ public class StringLaba {
         for(int i = 0; i < count; i++){
             strList.add(newStr[i]);
         }
-
+        Collections.sort(strList, (s1, s2) -> s1.charAt(0) - s2.charAt(0));
+        System.out.print("Отсортированная строка: " + strList);
     }
 
     public static int Count(String str, String razdel) {
@@ -84,7 +92,7 @@ public class StringLaba {
         int count = 0;
         for (int i = 0; tokenizer.hasMoreTokens(); i++) {
             newStr[i] = tokenizer.nextToken();
-            System.out.print(newStr[i]);
+           // System.out.print(newStr[i]);
             count++;
         }
         return count;
